@@ -1,3 +1,7 @@
+//Get input from command line and make sure its a valid input.
+
+// Otherwise, tell use to give the values again and return null
+
 var input = process.argv.slice(2);
 
 if(input[0].length < 0 || input[1].length<0)
@@ -6,9 +10,14 @@ if(input[0].length < 0 || input[1].length<0)
   return null;
 }
 
+// Initiate the request call
+
 var request = require('request');
 
 console.log('Welcome to the GitHub Avatar Downloader!');
+
+// Function for requesting the data from the url.
+//The function will return an error if something doesn't go well.
 
 function getRepoContributors(repoOwner, repoName, cb) {
   var options ={
@@ -22,6 +31,10 @@ function getRepoContributors(repoOwner, repoName, cb) {
   });
 }
 
+// Using user input of the given Repo name and Repo owner from the command line, the
+//getRepoContributors function is initiated which  loops through all the users and invokes the function
+// downloadImageByURL funciton to start extracting the jpgs for each person in the repo
+
 getRepoContributors(input[0], input[1], function(err, result) {
   console.log("Errors:", err);
   for (i=0; i<result.length; i++)
@@ -31,6 +44,10 @@ getRepoContributors(input[0], input[1], function(err, result) {
   }
 
 });
+
+
+//When this downloadImageByURL function is invoked, it downloads each jpg from the given url
+//And saves the output to the given file path, and the file names are basically indiviual id.
 
 function downloadImageByURL(url, filePath ) {
 
@@ -55,12 +72,4 @@ request.get(url)
         })
         .pipe(fs.createWriteStream('./avatars/'+filePath+'.jpg'))
 }
-              // Note 4
 
-// Notes:
-// 1. `request.get` is equivalent to `request()`
-// 2. `request.on('error', callback)` handles any error
-// 3. `request.on('response, callback)` handles the response
-// 4. What is happening here?
-
-// downloadImageByURL("https://avatars2.githubusercontent.com/u/2741?v=3&s=466", "/avatars");
