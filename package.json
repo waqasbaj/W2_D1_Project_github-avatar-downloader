@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/waqasbaj/W2_D1_Project_github-avatar-downloader#readme",
   "dependencies": {
+    "dotenv": "^4.0.0",
     "request": "^2.83.0"
   }
 }

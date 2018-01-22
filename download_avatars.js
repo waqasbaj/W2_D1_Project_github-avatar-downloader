@@ -1,6 +1,7 @@
 //Get input from command line and make sure its a valid input.
 
 // Otherwise, tell use to give the values again and return null
+require('dotenv').config();
 
 var input = process.argv.slice(2);
 
@@ -23,7 +24,7 @@ function getRepoContributors(repoOwner, repoName, cb) {
   var options ={
     url:"https://api.github.com/repos/" + repoOwner + "/" + repoName +"/contributors",
     headers:{'User-Agent': 'request',
-              'Authorization': '10eb148eda4c6a4447cf08a76d2fbe3464517a6d'}};
+              'Authorization': process.env.avatar_key}};
   request(options, function(err, res, body) {
     body = JSON.parse(body);
     cb(err, body);
