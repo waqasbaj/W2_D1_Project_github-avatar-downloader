@@ -1,3 +1,11 @@
+var input = process.argv.slice(2);
+
+if(input[0].length < 0 || input[1].length<0)
+{
+  console.log("Please enter a valid entry")
+  return null;
+}
+
 var request = require('request');
 
 console.log('Welcome to the GitHub Avatar Downloader!');
@@ -14,7 +22,7 @@ function getRepoContributors(repoOwner, repoName, cb) {
   });
 }
 
-getRepoContributors("jquery", "jquery", function(err, result) {
+getRepoContributors(input[0], input[1], function(err, result) {
   console.log("Errors:", err);
   for (i=0; i<result.length; i++)
   {
@@ -45,7 +53,7 @@ request.get(url)
        .on('end', function() {
         console.log('Download complete.');
         })
-        .pipe(fs.createWriteStream('./'+filePath+'.jpg'))
+        .pipe(fs.createWriteStream('./avatars/'+filePath+'.jpg'))
 }
               // Note 4
 
